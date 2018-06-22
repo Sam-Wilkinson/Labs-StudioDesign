@@ -23,17 +23,6 @@ public function imageStore($image, $folder, $width, $height){
             $constraint->aspectRatio();
             $constraint->upsize();
     });
-    if($folder == 'users'){
-        $image->store('', $folder.'-thumb');
-        $thumb = Image::make(Storage::disk($folder)->path($imageName))->resize(117, 117,function($constraint){
-            $constraint->upsize();
-        });
-        $tiny = Image::make(Storage::disk($folder)->path($imageName))->resize(80, 80,function($constraint){
-            $constraint->upsize();
-        });
-        $tiny->save();
-        
-    }
     $newImage->save();
     return $imageName;
 }

@@ -68,5 +68,9 @@
 
 @yield('adminlte_js')
 
+<!-- What you see is what you get ckeditor -->
+    <script src="{{asset('/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
+@yield('js')
+
 </body>
 </html>

@@ -151,7 +151,8 @@ return [
          * Package Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
-
+        Unisharp\Ckeditor\ServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -161,6 +162,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ImageServiceProvider::class,
+        
         
 
     ],

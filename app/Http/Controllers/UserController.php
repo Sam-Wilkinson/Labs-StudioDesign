@@ -48,6 +48,8 @@ class UserController extends Controller
         $user->password = $request->password;
         if($request->image != null){
             $user->image = App::make('ImageResize')->imageStore($request->image, 'users', 360, 448);
+            $user->image = App::make('ImageResize')->imageStore($request->image, 'users-thumb', 117, 117);
+            $user->image = App::make('ImageResize')->imageStore($request->image, 'users-tiny', 80, 80);
         }
         if($user->save()){
         return redirect()->route('users.index')->with([
@@ -103,8 +105,12 @@ class UserController extends Controller
         if($request->image != null){
             if(Storage::disk('users')->exists($user->image)){
                 App::make('ImageDelete')->imageDelete($user->image, 'users');
+                App::make('ImageDelete')->imageDelete($user->image, 'users-thumb');
+                App::make('ImageDelete')->imageDelete($user->image, 'users-tiny');
             }
             $user->image = App::make('ImageResize')->imageStore($request->image, 'users', 360, 448);
+            $user->image = App::make('ImageResize')->imageStore($request->image, 'users-thumb', 117, 117);
+            $user->image = App::make('ImageResize')->imageStore($request->image, 'users-tiny', 80, 80);
         }
         if($user->save()){
         return redirect()->route('users.index')->with([
@@ -132,6 +138,8 @@ class UserController extends Controller
     {
         if(Storage::disk('users')->exists($user->image)){
             App::make('ImageDelete')->imageDelete($user->image, 'users');
+            App::make('ImageDelete')->imageDelete($user->image, 'users-thumb');
+            App::make('ImageDelete')->imageDelete($user->image, 'users-tiny');
         }
         if($user->delete()){
             return redirect()->route('users.index')->with([

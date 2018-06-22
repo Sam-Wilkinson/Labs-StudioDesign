@@ -38,9 +38,10 @@
                                 </a>
                                 <a href="">{{$commentsNum}} Comment @if($commentsNum >1)s @endif</a>
                             </div>
-                            <p>{{$blog->content}}</p>
+                            <p>{!! $blog->content !!}</p>
                         </div>
                         <!-- Post Author -->
+                        @if($blog->user == null)
                         @foreach($users as $user)
                         <div class="author">
                             <div class="avatar">
@@ -48,18 +49,35 @@
                             </div>
                             <div class="author-info">
                                 <h2>{{$user->name}}, <span>Author</span></h2>
-                                <p>{{$blog->description}} </p>
+                                <p>{!! $blog->description !!} </p>
                             </div>
                         </div>
                         @endforeach
+                        @else
+                        <div class="author">
+                            <div class="avatar">
+                                <img src="{{$blog->user->image? Storage::disk('users-thumb  ')->url($blog->user->image):Storage::disk('users-thumb')->url('UserNoImage.png')}}" alt="">
+                            </div>
+                            <div class="author-info">
+                                <h2>{{$blog->user->name}}, <span>Author</span></h2>
+                                <p>{!! $blog->description !!} </p>
+                            </div>
+                        </div>
+                        @endif
                         <!-- Post Comments -->
                         <div class="comments">
-                            <h2>Comments (2)</h2>
+                            <h2>Comments ({{$commentsNum}})</h2>
                             <ul class="comment-list">
                                 @foreach($blog->comments as $comment)
                                 <li>
                                     <div class="avatar">
-                                        <img src="{{$user->image? Storage::disk('users-thumb')->url($user->image):Storage::disk('users-thumb')->url('UserNoImage.png')}}" alt="">
+                                        @if($blog->user == null)
+                                        @foreach($users as $user)
+                                        <img src="{{$user->image? Storage::disk('users-tiny')->url($user->image):Storage::disk('users-tiny')->url('UserNoImage.png')}}" alt="">
+                                        @endforeach
+                                        @else
+                                        <img src="{{$blog->user->image? Storage::disk('users-tiny')->url($blog->user->image):Storage::disk('users-tiny')->url('UserNoImage.png')}}" alt="">
+                                        @endif
                                     </div>
                                     <div class="commetn-text">
                                         <h3>{{$comment->name}} | {{$comment->created_at}}</h3>
@@ -75,20 +93,20 @@
                 <div class="col-md-4 col-sm-5 sidebar">
                     <!-- Single widget -->
                     <div class="widget-item">
-                        <h2 class="widget-title">The Blogs Categories</h2>
+                        <h2 class="widget-title">The blogs Category</h2>
                         <ul>
-                            @if($blog->categories != null)
-                            @foreach($blog->categories as $category)
-                            <li><a href="#">{{$category->name}}</a></li>
-                            @endforeach
+                            @if($blog->category != null)
+                            
+                            <li><a href="#">{{$blog->category->name}}</a></li>
+                            
                             @else
-                            <li><a href="#">There are no categories for this blog</a></li>
+                            <li><a href="#">There is no category for this blog</a></li>
                             @endif
                         </ul>
                     </div>
                     <!-- Single widget -->
                     <div class="widget-item">
-                        <h2 class="widget-title">The Blogs Tags</h2>
+                        <h2 class="widget-title">The blogs Tags</h2>
                         <ul class="tag">
                             @if($blog->tags != null)
                             @foreach($blog->tags as $tag)
@@ -100,7 +118,7 @@
                         </ul>
                     </div>
                     <div class="widget-item">
-                            <h2 class="widget-title">Modifications</h2>
+                            <h2 class="widget-title">Blog Modifications</h2>
                             <ul class="tag">
                                 <a class="btn btn-warning text-dark d-inline" href="{{route('blogs.edit',['blog' => $blog->id])}}">Edit</a>
                                 <form action="{{route('blogs.destroy',['blog' => $blog->id])}}" method="POST" class="d-inline">

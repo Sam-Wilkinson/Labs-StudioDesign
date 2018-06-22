@@ -20,54 +20,46 @@
         </div>
     @endif
     
-    <div class="border border-dark p-1 my-1">
+    <div class="p-1 my-1">
         <label for="">Name</label>
         <input type="text" name="name" id="name" class="form-control border {{$errors->has('name')? 'border-danger': ''}}" value="{{old('name')}}" aria-describedby="helpId">
     </div>
 
-    <div class="border border-dark p-1 my-1">
+    <div class="p-1 my-1">
         <label for="">Description</label>
-        <textarea class="form-control border {{$errors->has('description')? 'border-danger': ''}}" name="description" id="description2" rows="3" placeholder="">{{old('description')}}</textarea>
+        <textarea class="form-control border {{$errors->has('description')? 'border-danger': ''}}" name="description" id="description" rows="3" placeholder="">{{old('description')}}</textarea>
     </div>
 
+    <div class="p-1 my-1">
+        <label for="">Content</label>
+        <textarea class="form-control border {{$errors->has('content')? 'border-danger': ''}}" name="content" id="content" rows="3" placeholder="">{{old('content')}}</textarea>
+    </div>
+    
     <div class="custom-file my-3 p-1">
         <input type="file" class="custom-file-input" id="image" name="image">
         <label class="custom-file-label" for="image" >Choose file</label>
     </div>
 
-    <div class="border border-dark p-1 my-1">
-    <label for="">URL of Project</label>
-        <input type="url" name="URL" id="URL" class="form-control border {{$errors->has('URL')? 'border-danger': ''}}" value="{{old('URL')}}" aria-describedby="helpId">
-    </div>
+    <div class="p-1 my-1">
+        <label for="">Category</label>
+        @foreach($categories as $category)
+            <div class="border bg-light p-3 mx-2">
+                <input type="radio" id="category" name="category" value="{{$category->id}}"><label for="coding">{{$category->name}}</label>
+            </div>
+        @endforeach
+    </div>  
 
-    <div class="border border-dark p-1 my-1">
-        <label for="">Date of Project</label>
-        <input type="date" name="date" id="date" class="form-control border {{$errors->has('date')? 'border-danger': ''}}" value="{{old('date')}}" aria-describedby="helpId">
-    </div>
-
-    <div class="border border-dark p-1 my-1">
-        <label for="">Technology</label>
-        @foreach($technologies as $tech)
-        <div>
-            <input type="checkbox" id="technologies" name="technologies[]" value="{{$tech->id}}">
-            <label for="coding">{{$tech->name}}</label>
+    <div class="p-1 my-3">
+        <label for="">Tags</label>
+        @foreach($tags as $tag)
+        <div class="border bg-light d-inline p-3 mx-2">
+            <input type="checkbox" id="technologies" name="tags[]" value="{{$tag->id}}">
+            <label for="coding">{{$tag->name}}</label>
         </div>
         @endforeach
     </div>
 
-    <div class="border border-dark p-1 my-1">
-        <label for="">Client</label>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Client List
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                @foreach($clients as $client)
-                    <input type="radio" id="client" name="client" value="{{$client->id}}">{{$client->name}}<br>
-                @endforeach
-            </div>
-        </div>
-    </div>  
+    
     <button class="btn btn-success mt-3 pull-right" type="submit">Create</button>
 </form>
 
@@ -75,6 +67,7 @@
 
 @section('js')
 <script>
-    CKEDITOR.replace( 'description2' );
+    CKEDITOR.replace( 'description' );
+    CKEDITOR.replace( 'content' );
 </script>
 @endsection

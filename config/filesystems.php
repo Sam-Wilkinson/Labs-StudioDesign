@@ -66,6 +66,12 @@ return [
             'url' => env('APP_URL').'/storage/users/thumb',
             'visibility' => 'public',
         ],
+        'users-tiny' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/users/tiny'),
+            'url' => env('APP_URL').'/storage/users/tiny',
+            'visibility' => 'public',
+        ],
         'blogs' => [
             'driver' => 'local',
             'root' => storage_path('app/public/blogs'),

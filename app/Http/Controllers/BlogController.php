@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Blog;
 use App\User;
+use App\Tag;
+use App\Category;
+use Auth;
+use Storage;
+
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -39,7 +45,26 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $blog = new Blog;
+        $blog->name = $request->name;
+        $blog->description = $request->description;
+        $blog->content = $request->content;
+        $blog->image = $request->image;
+        $blog->categories_id= $request->category;
+        $blog->users_id = Auth::user()->id;
+        if($request->image != null){
+            $blog->image = App::make('ImageResize')->imageStore($request->image, 'blogs', 720 , null);
+        }
+        $blog->save();
+        foreach($request->tags as $tag)
+        {
+           $blog->tags()->attach($tag);
+        }
+        return redirect()->route('blogs.show',['blog'=>$blog->id])->with([
+            "status"=> "Success",
+            "message"=> "You have successfully added a Blog",
+            "color"=> "success"
+            ]);
     }
 
     /**
@@ -69,7 +94,9 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        //
+        $tags = Tag::get();
+        $categories = Category::get();
+        return view('user.blogs.edit', compact('blog','tags','categories'));
     }
 
     /**
@@ -81,7 +108,31 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+        $blog->name = $request->name;
+        $blog->description = $request->description;
+        $blog->content = $request->content;
+        $blog->categories_id= $request->category;
+        $blog->users_id = Auth::user()->id;
+        if($request->image != null){
+            if(Storage::disk('blogs')->exists($blog->image)){
+                App::make('ImageResize')->imageDelete($blog->image, 'blogs');
+            }
+            $blog->image = App::make('ImageResize')->imageStore($request->image, 'blogs', 720 , null);
+        }
+        $blog->save();
+        if($blog->tags != $request->tags)
+        {
+            $blog->tags()->detach();
+            foreach($request->tags as $tag)
+            {
+                $blog->tags()->attach($tag);
+            }
+        }
+        return redirect()->route('blogs.show',['blog'=>$blog->id])->with([
+            "status"=> "Success",
+            "message"=> "You have successfully added a Blog",
+            "color"=> "success"
+            ]);
     }
 
     /**
