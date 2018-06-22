@@ -32,6 +32,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/user/blogs', 'BlogController');
+Route::resource('/user/comments','CommentController');
 
 
 Route::resource('/admin/users', 'UserController');

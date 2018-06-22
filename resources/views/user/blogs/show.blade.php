@@ -83,9 +83,26 @@
                                         <h3>{{$comment->name}} | {{$comment->created_at}}</h3>
                                         <p>{{$comment->message}} </p>
                                     </div>
+                                    <form action="{{route('comments.destroy',['comment' => $comment->id])}}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger" type="submit">Archive</button>
+                                    </form>
                                 </li>
                                 @endforeach
                             </ul>
+                            <h2>Leave a comment</h2>
+                            <form class="form-class" action="{{route('comments.store')}}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" value="{{$blog->id}}" name="blog">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <textarea name="message" placeholder="Message"></textarea>
+                                        <button type="submit" class="site-btn">send</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

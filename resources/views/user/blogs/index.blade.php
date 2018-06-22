@@ -18,6 +18,7 @@
                 <th>Name</th>
                 <th>User</th> 
                 <th>Created At</th>
+                <th>Validated</th>
                 <th>Content</th>
             </tr>
         </thead>
@@ -34,6 +35,13 @@
                     <td>User was Deleted</td>
                 @endif
                 <td>{{$blog->created_at}}</td>
+                @if($blog->validated == null)
+                <td>no</td>
+                @elseif($blog->validated == true)
+                <td>yes</td>
+                @else
+                <td>rejected</td>
+                @endif
                 <td>
                     <a href="{{route('blogs.show',['blog'=>$blog->id])}}" class="btn btn-success">GO</a>
                 </td>

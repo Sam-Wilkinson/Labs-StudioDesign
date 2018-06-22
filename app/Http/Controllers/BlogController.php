@@ -9,6 +9,7 @@ use App\Tag;
 use App\Category;
 use Auth;
 use Storage;
+use App\Http\Requests\StoreBlog;
 
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBlog $request)
     {
         $blog = new Blog;
         $blog->name = $request->name;
@@ -106,7 +107,7 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(StoreBlog $request, Blog $blog)
     {
         $blog->name = $request->name;
         $blog->description = $request->description;
@@ -143,6 +144,22 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        App::make('ImageDelete')->imageDelete($blog->image, 'blogs');
+        foreach($blog->comments() as $comment){
+            $comment->delete();
+        }
+        if($blog->delete()){
+            return redirect()->route('blogs.index')->with([
+                "status"=> "Sorry to see them go!",
+                "message"=> "You have successfully removed the blog",
+                "color"=> "success"
+            ]);
+        }else{
+            return redirect()->route('users.index')->with([
+                "status"=> "Failure",
+                "message"=> "Unfortunately the blog was not archived",
+                "color"=> "danger"
+            ]);
+        }
     }
 }

@@ -27,6 +27,7 @@ class CreateCommentsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->mediumText('message');
+            $table->string('image')->nullable();
             $table->boolean('validated')->nullable();
             $table->unsignedInteger('blogs_id');
 
