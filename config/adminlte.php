@@ -116,41 +116,6 @@ return [
             'label'       => 1,
             'label_color' => 'dark'
         ],
-        [
-            'text'        => 'Tags & Categories',
-            'url'         => 'user/tagsandcategories',
-            'icon'        => 'file',
-            'label'       => 2,
-            'label_color' => 'dark'
-        ],
-        [
-            'text'        => 'Clients',
-            'url'         => 'user/clients',
-            'icon'        => 'address-card',
-            'label'       => 3,
-            'label_color' => 'dark'
-        ],
-        [
-            'text'        => 'Services',
-            'url'         => 'user/services',
-            'icon'        => 'balance-scale',
-            'label'       => 4,
-            'label_color' => 'dark'
-        ],
-        [
-            'text'        => 'Products',
-            'url'         => 'user/products',
-            'icon'        => 'podcast',
-            'label'       => 5,
-            'label_color' => 'dark'
-        ],
-        [
-            'text'        => 'Newsletter emails',
-            'url'         => 'user/newsemails',
-            'icon'        => 'map',
-            'label'       => 6,
-            'label_color' => 'dark'
-        ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',
@@ -167,6 +132,31 @@ return [
             'text'        => 'Team',
             'url'         => 'admin/users',
             'icon'        => 'users',
+        ],
+        [
+            'text'        => 'Tags & Categories',
+            'url'         => 'admin/tags',
+            'icon'        => 'file',
+        ],
+        [
+            'text'        => 'Clients',
+            'url'         => 'admin/clients',
+            'icon'        => 'address-card',
+        ],
+        [
+            'text'        => 'Services',
+            'url'         => 'admin/services',
+            'icon'        => 'balance-scale',
+        ],
+        [
+            'text'        => 'Products',
+            'url'         => 'admin/products',
+            'icon'        => 'podcast',
+        ],
+        [
+            'text'        => 'Newsletter emails',
+            'url'         => 'admin/newsemails',
+            'icon'        => 'map',
         ],
         [
             'text'        => 'Texts',

@@ -148,18 +148,6 @@ class BlogController extends Controller
         foreach($blog->comments() as $comment){
             $comment->delete();
         }
-        if($blog->delete()){
-            return redirect()->route('blogs.index')->with([
-                "status"=> "Sorry to see them go!",
-                "message"=> "You have successfully removed the blog",
-                "color"=> "success"
-            ]);
-        }else{
-            return redirect()->route('users.index')->with([
-                "status"=> "Failure",
-                "message"=> "Unfortunately the blog was not archived",
-                "color"=> "danger"
-            ]);
-        }
+        
     }
 }
