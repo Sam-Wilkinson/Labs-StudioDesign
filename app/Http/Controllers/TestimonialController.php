@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Testimonial;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTestimonial;
 
 class TestimonialController extends Controller
 {
@@ -24,7 +25,7 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        //
+     //   
     }
 
     /**
@@ -33,9 +34,18 @@ class TestimonialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTestimonial $request)
     {
-        //
+        $testimonial = new Testimonial;
+        $testimonial->content = $request->testimonial;
+        $testimonial->clients_id = $request->client;
+        if($testimonial->save()){
+            return redirect()->route('clients.index')->with([
+                "status"=> "Success",
+                "message"=> "You have successfully added a Testimonial to a Client",
+                "color"=> "success"
+                ]);
+        }
     }
 
     /**
@@ -44,9 +54,9 @@ class TestimonialController extends Controller
      * @param  \App\Testimonial  $testimonial
      * @return \Illuminate\Http\Response
      */
-    public function show(Testimonial $testimonial)
+    public function show($client)
     {
-        //
+        return view('admin.testimonials.create',compact('client'));
     }
 
     /**

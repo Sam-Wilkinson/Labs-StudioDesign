@@ -26,5 +26,4 @@ public function imageStore($image, $folder, $width, $height){
     $newImage->save();
     return $imageName;
 }
-
 }
