@@ -30,7 +30,7 @@ class CreateBlogsTable extends Migration
             $table->string('image')->nullable();
             $table->boolean('validated')->nullable();
             $table->unsignedInteger('users_id');
-            $table->unsignedInteger('categories_id');
+            $table->unsignedInteger('categories_id')->nullable();
 
             $table->index(["users_id"], 'fk_blogs_Users1_idx');
 

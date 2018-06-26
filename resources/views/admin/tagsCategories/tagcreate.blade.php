@@ -9,6 +9,7 @@
 <form method="POST" action="{{route('tags.store')}}" enctype="multipart/form-data">
     @csrf
     @method('POST')
+    <input type="hidden" name="link" value="{{$link}}">
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

@@ -6,6 +6,7 @@ use App\Tag;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTag;
+use URL; 
 
 class TagController extends Controller
 {
@@ -28,7 +29,8 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('admin.tagsCategories.tagcreate');
+        $link = app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+        return view('admin.tagsCategories.tagcreate',compact('link'));
     }
 
     /**
@@ -41,20 +43,33 @@ class TagController extends Controller
     {
         $tag = new Tag;
         $tag->name = $request->name;
-
         if($tag->save()){
-            return redirect()->route('tags.index')->with([
+            if($request->link == 'blgs.show'){
+                return redirect()->route('blogs.index')->with([
+                    "status"=> "Success",
+                    "message"=> "You have successfully added a new Tag, you can link the tag by editing the blog",
+                    "color"=> "success"
+                ]);
+            }
+            return redirect()->route($request->link)->with([
                 "status"=> "Success",
                 "message"=> "You have successfully added a new Tag",
                 "color"=> "success"
                 ]);
             }
-            else{
-                return redirect()->route('tags  .index')->with([
+        else{
+            if($request->link == 'blogs.show'){
+                return redirect()->route('blogs.index   ')->with([
                     "status"=> "Failure",
                     "message"=> "Unfortunately the new Tag did not save correctly",
                     "color"=> "danger"
                     ]);
+            }
+            return redirect()->route($request->link)->with([
+                "status"=> "Failure",
+                "message"=> "Unfortunately the new Tag did not save correctly",
+                "color"=> "danger"
+                ]);
             };
     }
 

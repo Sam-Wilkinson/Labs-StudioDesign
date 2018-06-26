@@ -37,6 +37,6 @@ Route::resource('/user/comments','CommentController');
 
 Route::resource('/admin/users', 'UserController');
 Route::resource('/admin/tags', 'TagController');
-Route::resource('admin/categories','CategoryController');
+Route::resource('/admin/categories','CategoryController');
 
 

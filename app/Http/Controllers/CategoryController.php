@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategory;
+use URL;
 
 class CategoryController extends Controller
 {
@@ -25,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.tagsCategories.categorycreate');
+        $link = app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+        return view('admin.tagsCategories.categorycreate',compact('link'));
     }
 
     /**
@@ -40,14 +42,28 @@ class CategoryController extends Controller
         $category->name = $request->name;
 
         if($category->save()){
-            return redirect()->route('tags.index')->with([
-                "status"=> "Success",
-                "message"=> "You have successfully added a new Category",
-                "color"=> "success"
+            if($request->link == 'blogs.show'){
+                return redirect()->route('blogs.index')->with([
+                    "status"=> "Success",
+                    "message"=> "You have successfully added a new Category, you can link the category by editing the blog",
+                    "color"=> "success"
+                ]);
+            }
+            return redirect()->route($request->link)->with([
+                    "status"=> "Success",
+                    "message"=> "You have successfully added a new Category",
+                    "color"=> "success"
                 ]);
             }
             else{
-                return redirect()->route('tags.index')->with([
+                if($request->link == 'blogs.show'){
+                    return redirect()->route('blogs.index   ')->with([
+                        "status"=> "Failure",
+                        "message"=> "Unfortunately the new Category did not save correctly",
+                        "color"=> "danger"
+                        ]);
+                }
+                return redirect()->route()->with([
                     "status"=> "Failure",
                     "message"=> "Unfortunately the new Category did not save correctly",
                     "color"=> "danger"

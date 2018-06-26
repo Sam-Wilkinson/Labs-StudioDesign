@@ -109,31 +109,37 @@
                 <!-- Sidebar area -->
                 <div class="col-md-4 col-sm-5 sidebar">
                     <!-- Single widget -->
+                    <!-- Category Area -->
                     <div class="widget-item">
                         <h2 class="widget-title">The blogs Category</h2>
                         <ul>
                             @if($blog->category != null)
                             
-                            <li><a href="#">{{$blog->category->name}}</a></li>
+                            <li><a href="{{route('categories.show',['category'=>$blog->category->id])}}">{{$blog->category->name}}</a></li>
                             
                             @else
                             <li><a href="#">There is no category for this blog</a></li>
+                            <li><a href="{{route('categories.create')}}">Create a Category</a></li>
                             @endif
                         </ul>
                     </div>
                     <!-- Single widget -->
+                    <!-- Tags -->
                     <div class="widget-item">
                         <h2 class="widget-title">The blogs Tags</h2>
                         <ul class="tag">
                             @if($blog->tags != null)
                             @foreach($blog->tags as $tag)
-                            <li><a href="">{{$tag->name}}</a></li>
+                            <li><a href="{{route('tags.show',['tag'=>$tag->id])}}">{{$tag->name}}</a></li>
                             @endforeach
                             @else 
                             <li><a href="">There are no tags for this blog</a></li>
                             @endif
+                            <li><a href="{{route('tags.create')}}">Create a Tag</a></li>
                         </ul>
                     </div>
+                    <!-- Single widget -->
+                    <!-- Blog Modifications -->
                     <div class="widget-item">
                             <h2 class="widget-title">Blog Modifications</h2>
                             <ul class="tag">

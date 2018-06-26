@@ -3,6 +3,7 @@
 @section('title', 'Projects')
 
 @section('content_header')
+    @include('partials.feedback-partials.notification')
     <h1> Add a Blog</h1>
 @stop
 
@@ -62,6 +63,9 @@
             <label for="coding">{{$tag->name}}</label>
         </div>
         @endforeach
+        <div class="border bg-light d-inline p-3 mx-2">
+            <a href="{{route('tags.create')}}">Create a Tag</a>
+        </div>
     </div>
 
     
