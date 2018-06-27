@@ -33,7 +33,7 @@
     <div class="card-body">
         <div class="row">
             <h5 class="card-title col-6">{{$client->name}}</h5>
-            <img class="card-img-top col-6" src="{{$client->image? Storage::disk('clients')->url($client->image):Storage::disk    ('clients')->url('ClientNoImage.png')}}" alt="Client Image">
+            <img class="card-img-top col-6" src="{{$client->image? Storage::disk('clients')->url($client->image):Storage::disk('clients')->url('ClientNoImage.png')}}" alt="Client Image">
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{$client->company}}</li>

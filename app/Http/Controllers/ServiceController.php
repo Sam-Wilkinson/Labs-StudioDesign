@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use Illuminate\Http\Request;
+use App\Serviceimage;   
+use App\Http\Requests\StoreService;
 
 class ServiceController extends Controller
 {
@@ -14,7 +16,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::orderby('created_at','desc')->get();
+        $services = Service::orderby('created_at','desc')->paginate(9);
         return view('admin.services.index' ,compact('services'));
     }
 
@@ -25,7 +27,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.services.create');
+        $logos = Serviceimage::orderBy('id','asc')->paginate(5); 
+        return view('admin.services.create',compact('logos'));
     }
 
     /**
@@ -34,9 +37,19 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreService $request)
     {
-        //
+        $service = new Service;
+        $service->name = $request->name;
+        $service->description = $request->description;
+        $service->logo = $request->logo;
+        if($service->save()){
+        return redirect()->route('services.show',['service'=>$service->id])->with([
+            "status"=> "Success",
+            "message"=> "You have successfully added a service",
+            "color"=> "success"
+            ]);
+        }
     }
 
     /**
@@ -58,7 +71,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        $logos = Serviceimage::orderBy('id','asc')->paginate(5); 
+        return view('admin.services.edit',compact('service','logos'));
     }
 
     /**
@@ -68,9 +82,25 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(StoreService $request, Service $service)
     {
-        //
+        $service->name = $request->name;
+        $service->description = $request->description;
+        $service->logo = $request->logo;
+        if($service->save()){
+        return redirect()->route('services.show',['service'=>$service->id])->with([
+            "status"=> "Success",
+            "message"=> "You have successfully updated the service",
+            "color"=> "success"
+            ]);
+        }
+        else{
+            return redirect()->route('services.index')->with([
+                "status"=> "Failure",
+                "message"=> "Unfortunately the service has not been updated",
+                "color"=> "danger"
+                ]);
+        }
     }
 
     /**
@@ -81,6 +111,18 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        if($service->delete()){
+            return redirect()->route('services.index')->with([
+                "status"=> "Sorry to see them go!",
+                "message"=> "You have successfully removed the service",
+                "color"=> "success"
+            ]);
+        }else{
+            return redirect()->route('services.index')->with([
+                "status"=> "Failure",
+                "message"=> "Unfortunately the service was not archived",
+                "color"=> "danger"
+            ]);
+        }
     }
 }

@@ -40,6 +40,7 @@ Route::resource('/admin/tags', 'TagController');
 Route::resource('/admin/categories','CategoryController');
 Route::resource('/admin/clients','ClientController');
 Route::resource('/admin/testimonials','TestimonialController');
-Route::resource('admin/services','ServiceController');
+Route::resource('/admin/services','ServiceController');
+Route::resource('/admin/products', 'ProductController');
 
 

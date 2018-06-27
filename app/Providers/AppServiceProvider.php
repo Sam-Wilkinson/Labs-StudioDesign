@@ -20,8 +20,12 @@ class AppServiceProvider extends ServiceProvider
         // This will only accept alpha and spaces. 
         // If you want to accept hyphens use: /^[\pL\s-]+$/u.
         return preg_match('/^[\pL\s]+$/u', $value); 
-
     });
+    Validator::extend('logo_name', function($attribute, $value){
+
+        return preg_match('flaticon-\d{3}-[a-z]+(-[a-z]+|\d)?-?\d?',$value);
+    });
+    
     }
 
     /**

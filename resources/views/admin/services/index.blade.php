@@ -25,7 +25,7 @@
 		    <div class="">
 		        <div class="service">
 				    <div class="icon">
-                        <i class="flaticon-023-flask text-dark"></i>
+                        <i class="{{$service->logo == 'logo'? 'flaticon-023-flask':$service->logo}}  text-dark"></i>
 				    </div>
 				    <div class="service-text">
 					    <h2>{{$service->name}}</h2>
@@ -35,10 +35,10 @@
             </div>
         </a>
         @endforeach
-	    <div class="text-center">
-            <a href="" class="site-btn">Browse</a>
-		</div>
+    </div>
+	<div class="row justify-content-center">
+            {{ $services->links() }}
 	</div>
-</div>
+	</div>
 @stop
 
