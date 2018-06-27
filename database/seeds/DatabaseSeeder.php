@@ -24,10 +24,12 @@ class DatabaseSeeder extends Seeder
          * The Clients Table Seeder generates the Clients as well as 1-2 Testimonials for each client.
          */
         $this->call(ClientsTableSeeder::class);
-        $this->call(ServicesTableSeeder::class);
         $this->call(NewsEmailsTableSeeder::class);
         $this->call(TextsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
+        
+        $this->call(ServicesTableSeeder::class);
+        $this->call(ServiceImagesTableSeeder::class);
 
     }
 }

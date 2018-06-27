@@ -6,6 +6,7 @@
     @stack('css')
     @yield('css')
     @yield('owlcss')
+    @yield('flaticonCSS')
 @stop
 
 @section('body_class', 'skin-' . config('adminlte.skin', 'blue') . ' sidebar-mini ' . (config('adminlte.layout') ? [

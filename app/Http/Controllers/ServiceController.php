@@ -14,7 +14,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::orderby('created_at','desc')->get();
+        return view('admin.services.index' ,compact('services'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.services.create');
     }
 
     /**
@@ -46,7 +47,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        return view('admin.services.show',compact('service'));
     }
 
     /**
