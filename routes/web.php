@@ -42,5 +42,6 @@ Route::resource('/admin/clients','ClientController');
 Route::resource('/admin/testimonials','TestimonialController');
 Route::resource('/admin/services','ServiceController');
 Route::resource('/admin/products', 'ProductController');
+Route::resource('/admin/texts', 'TextController');
 
 

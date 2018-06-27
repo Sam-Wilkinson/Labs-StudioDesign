@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Text;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreText;
 
 class TextController extends Controller
 {
@@ -14,7 +15,8 @@ class TextController extends Controller
      */
     public function index()
     {
-        //
+        $texts = Text::orderby('id','desc')->get();
+        return view('admin.texts.index',compact('texts'));
     }
 
     /**
@@ -67,9 +69,23 @@ class TextController extends Controller
      * @param  \App\Text  $text
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Text $text)
+    public function update(StoreText $request, Text $text)
     {
-        //
+        $text->content = $request->text;
+        if($text->save()){
+            return redirect()->route('texts.index')->with([
+                "status"=> "Success",
+                "message"=> "You have successfully updated the text",
+                "color"=> "success"
+            ]);
+        }else{
+            return redirect()->route('users.index')->with([
+                "status"=> "Failure",
+                "message"=> "Unfortunately the text were not modified",
+                "color"=> "danger"
+            ]);
+        }
+        
     }
 
     /**
