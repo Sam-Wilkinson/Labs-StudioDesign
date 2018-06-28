@@ -132,106 +132,69 @@ return [
             'text'        => 'Team',
             'url'         => 'admin/users',
             'icon'        => 'users',
+            'can'         => 'admin-only',
         ],
         [
             'text'        => 'Tags & Categories',
             'url'         => 'admin/tags',
             'icon'        => 'file',
+            'can'         => 'admin-only',
         ],
         [
             'text'        => 'Clients',
             'url'         => 'admin/clients',
             'icon'        => 'address-card',
+            'can'         => 'admin-only',
         ],
         [
             'text'        => 'Services',
             'url'         => 'admin/services',
             'icon'        => 'balance-scale',
+            'can'         => 'admin-only',
         ],
         [
             'text'        => 'Products',
             'url'         => 'admin/products',
             'icon'        => 'podcast',
+            'can'         => 'admin-only',
         ],
         [
             'text'        => 'Newsletter emails',
             'url'         => 'admin/newsemails',
             'icon'        => 'map',
+            'can'         => 'admin-only',
         ],
         [
             'text'        => 'Texts',
             'url'         => 'admin/texts',
             'icon'        => 'comment',
+            'can'         => 'admin-only',
         ],
         [
             'text'        => 'Images',
             'url'         => 'admin/images',
             'icon'        => 'image',
+            'can'         => 'admin-only',
         ],
         [
             'text'    => 'Validation',
             'icon'    => 'share',
+            'can'         => 'admin-only',
             'submenu' => [
                 [
                     'text' => 'All',
-                    'url'  => '#',
+                    'url'  => 'admin/validation/all',
                 ],
                 [
-                    'text'    => 'Blogs & Comments',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Blogs',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'Comments',
-                            'url'     => '#',
-                        ],
-                    ],
+                    'text' => 'Blogs',
+                    'url'  => 'admin/validation/blogs',
                 ],
                 [
-                    'text'    => 'Tags & Categories',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Tags',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'Categories',
-                            'url'     => '#',
-                        ],
-                    ],
+                    'text' => 'Comments',
+                    'url'  => 'admin/validation/comments',
                 ],
-                [
-                    'text'    => 'Clients & Testimonials ',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Clients',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'Testimonials',
-                            'url'     => '#',
-                        ],
-                    ],
-                ],
-                [
-                    'text'    => 'Services & Products',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Services',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'Products',
-                            'url'     => '#',
-                        ],
-                    ],
-                ],
+                
+                
             ], 
         ],
     ],

@@ -36,7 +36,7 @@
                                     {{$tag->name}},
                                     @endforeach
                                 </a>
-                                <a href="">{{$commentsNum}} Comment @if($commentsNum >1)s @endif</a>
+                                <a href="">{{$commentsNum}} Comment {{$commentsNum == 1? '':'s'}} </a>
                             </div>
                             <p>{!! $blog->content !!}</p>
                         </div>
@@ -83,11 +83,27 @@
                                         <h3>{{$comment->name}} | {{$comment->created_at}}</h3>
                                         <p>{{$comment->message}} </p>
                                     </div>
+                                    @can('delete', $comment)
                                     <form action="{{route('comments.destroy',['comment' => $comment->id])}}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger" type="submit">Archive</button>
                                     </form>
+                                    @endcan
+                                    @can('admin-only')
+                                    <form action="{{route('valComment',['id' => $comment->id])}}" class="d-inline" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="validation" value="1">
+                                        <button class="btn btn-success text-dark">Approved</button>
+                                    </form>
+                                    <form action="{{route('valComment',['id' => $comment->id])}}" class="d-inline" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="validation" value="">
+                                            <button class="btn btn-danger text-dark">Denied</button>
+                                        </form>
+                                    @endcan
                                 </li>
                                 @endforeach
                             </ul>
@@ -119,7 +135,9 @@
                             
                             @else
                             <li><a href="#">There is no category for this blog</a></li>
+                            @can('admin-only')
                             <li><a href="{{route('categories.create')}}">Create a Category</a></li>
+                            @endcan
                             @endif
                         </ul>
                     </div>
@@ -135,10 +153,13 @@
                             @else 
                             <li><a href="">There are no tags for this blog</a></li>
                             @endif
+                            @can('admin-only')
                             <li><a href="{{route('tags.create')}}">Create a Tag</a></li>
+                            @endcan
                         </ul>
                     </div>
                     <!-- Single widget -->
+                    @can('update', $blog)
                     <!-- Blog Modifications -->
                     <div class="widget-item">
                             <h2 class="widget-title">Blog Modifications</h2>
@@ -151,6 +172,27 @@
                                 </form>
                             </ul>
                         </div>
+                    @endcan
+                    @can('admin-only')
+                    <!-- Blog Validation -->
+                    <div class="widget-item">
+                            <h2 class="widget-title">Blog Validation</h2>
+                            <ul class="tag">
+                                <form action="{{route('valBlog',['id' => $blog->id])}}" class="d-inline" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="validation" value="1">
+                                    <button class="btn btn-success text-dark">Approved</button>
+                                </form>
+                                <form action="{{route('valBlog',['id' => $blog->id])}}" class="d-inline" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="validation" value="">
+                                        <button class="btn btn-danger text-dark">Denied</button>
+                                    </form>
+                            </ul>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>

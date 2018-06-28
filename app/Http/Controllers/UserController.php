@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateUser;
 use Storage;
 
 class UserController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      *

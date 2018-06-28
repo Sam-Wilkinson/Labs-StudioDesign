@@ -50,6 +50,11 @@
                 <label for="coding">{{$category->name}}</label> 
             </div>
         @endforeach
+        @can('admin-only')
+        <div class="border bg-light p-3 mx-2">
+            <a class="text-dark" href="{{route('categories.create')}}">Create a Category</a>
+        </div>
+        @endcan
     </div>  
 
     <div class="p-1 my-3">
@@ -63,9 +68,11 @@
             <label for="coding">{{$tag->name}}</label>
         </div>
         @endforeach
+        @can('admin-only')
         <div class="border bg-light d-inline p-3 mx-2">
             <a href="{{route('tags.create')}}">Create a Tag</a>
         </div>
+        @endcan
     </div>
 
     

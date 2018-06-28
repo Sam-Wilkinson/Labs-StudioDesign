@@ -14,6 +14,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Blog'  =>  'App\Policies\BlogPolicy',
+        'App\Comment'  =>  'App\Policies\CommentPolicy'
     ];
 
     /**
@@ -25,6 +27,20 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('admin-only', function ($user) {
+            if($user->roles_id == 1)
+            {
+                return true;
+            }
+            return false;
+        });
+        Gate::define('is-owner', function ($post) {
+            if(Auth::user()->id == $post->user->id)
+            {
+                return true;
+            }
+            return false;
+        });
     }
+    
 }

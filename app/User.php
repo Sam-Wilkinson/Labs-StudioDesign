@@ -2,6 +2,8 @@
 
 namespace App;
 
+
+use Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,5 +51,9 @@ class User extends Authenticatable
     public function blogs()
     {
         return $this->hasMany('App\Blog','users_id','id');
+    }
+    public function isAdmin()
+    {
+       return Auth::user()->role->slug == "admin";
     }
 }

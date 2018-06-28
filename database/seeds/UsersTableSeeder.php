@@ -12,18 +12,27 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'Sam Wilkinson',
-            'email' => 'samwilkinson96@mail.com',
-            'position' => 'admin',
-            'password' => bcrypt('123456'),
-            'roles_id' => '1'
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Yassine',
-            'email' => 'yassine@molengeek.be',
-            'position' => 'CEO',
-            'password' => bcrypt('654321'),
-            'roles_id' => '1'
+            [
+                'name' => 'Sam Wilkinson',
+                'email' => 'samwilkinson96@mail.com',
+                'position' => 'admin',
+                'password' => bcrypt('123456'),
+                'roles_id' => '1'
+            ],
+            [
+                'name' => 'Yassine',
+                'email' => 'yassine@molengeek.be',
+                'position' => 'CEO',
+                'password' => bcrypt('654321'),
+                'roles_id' => '1'
+            ],
+            [
+                'name' => 'user',
+                'email' => 'user@example.com',
+                'position' => 'Employee',
+                'password' => bcrypt('123456'),
+                'roles_id' => '2'
+            ]
         ]);
         factory(App\User::class, 5)->create()
         ->each(function($user){

@@ -95,6 +95,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
+        $this->authorize('update', $blog);
         $tags = Tag::get();
         $categories = Category::get();
         return view('user.blogs.edit', compact('blog','tags','categories'));
@@ -109,6 +110,7 @@ class BlogController extends Controller
      */
     public function update(StoreBlog $request, Blog $blog)
     {
+        $this->authorize('update', $blog);
         $blog->name = $request->name;
         $blog->description = $request->description;
         $blog->content = $request->content;
@@ -144,6 +146,7 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
+        $this->authorize('update', $post);
         App::make('ImageDelete')->imageDelete($blog->image, 'blogs');
         foreach($blog->comments() as $comment){
             $comment->delete();
