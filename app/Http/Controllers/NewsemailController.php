@@ -14,7 +14,8 @@ class NewsemailController extends Controller
      */
     public function index()
     {
-        //
+        $emails = Newsemail::orderby('created_at','desc')->get();
+        return view('admin.news.index',compact('emails'));
     }
 
     /**
@@ -80,6 +81,18 @@ class NewsemailController extends Controller
      */
     public function destroy(Newsemail $newsemail)
     {
-        //
+        if($newsemail->delete()){
+            return redirect()->route('newsemails.index')->with([
+                "status"=> "Sorry to see them go!",
+                "message"=> "You have successfully archived the email",
+                "color"=> "success"
+            ]);
+        }else{
+            return redirect()->route('newsemails.index')->with([
+                "status"=> "Failure",
+                "message"=> "Unfortunately the email was not archived",
+                "color"=> "danger"
+            ]);
+        }
     }
 }

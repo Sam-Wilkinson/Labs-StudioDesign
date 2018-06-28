@@ -44,7 +44,7 @@ class TagController extends Controller
         $tag = new Tag;
         $tag->name = $request->name;
         if($tag->save()){
-            if($request->link == 'blgs.show'){
+            if($request->link == 'blogs.show'){
                 return redirect()->route('blogs.index')->with([
                     "status"=> "Success",
                     "message"=> "You have successfully added a new Tag, you can link the tag by editing the blog",
@@ -59,7 +59,7 @@ class TagController extends Controller
             }
         else{
             if($request->link == 'blogs.show'){
-                return redirect()->route('blogs.index   ')->with([
+                return redirect()->route('blogs.index')->with([
                     "status"=> "Failure",
                     "message"=> "Unfortunately the new Tag did not save correctly",
                     "color"=> "danger"
