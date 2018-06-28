@@ -16,6 +16,7 @@ Route::get('/services', 'FrontController@services')->name('services');
 Route::get('/blogs', 'FrontController@blogs')->name('blogs');
 Route::get('/blog-post','FrontController@blogpost')->name('blogpost');
 Route::get('/contact', 'FrontController@contact')->name('contact');
+Route::post('/contactform','FrontController@contactform')->name('contactform');
 
 Auth::routes();
 

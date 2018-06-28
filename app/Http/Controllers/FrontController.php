@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
+use App\Mail\ContactFormMailer;
 use App\Blog;
 use Route;
 use App\Image;
@@ -43,5 +45,10 @@ class FrontController extends Controller
     public function contact()
     {
         return view('contact');
+    }
+    public function contactform(Request $request)
+    {
+        Mail::to('yassine@molengeek.com')->send(new ContactFormMailer($request));
+        return redirect()->route('welcome');
     }
 }

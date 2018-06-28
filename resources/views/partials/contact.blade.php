@@ -15,7 +15,9 @@
 				</div>
 				<!-- contact form -->
 				<div class="col-md-6 col-pull">
-					<form class="form-class" id="con_form">
+					<form class="form-class" id="con_form" action="{{route('contactform')}}" method="POST">
+						@csrf
+						@method('POST')
 						<div class="row">
 							<div class="col-sm-6">
 								<input type="text" name="name" placeholder="Your name">
@@ -26,7 +28,7 @@
 							<div class="col-sm-12">
 								<input type="text" name="subject" placeholder="Subject">
 								<textarea name="message" placeholder="Message"></textarea>
-								<button class="site-btn">send</button>
+								<button type="submit" class="site-btn">send</button>
 							</div>
 						</div>
 					</form>
