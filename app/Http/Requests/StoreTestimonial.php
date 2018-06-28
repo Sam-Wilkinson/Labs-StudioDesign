@@ -24,7 +24,7 @@ class StoreTestimonial extends FormRequest
     public function rules()
     {
         return [
-            'testimonial' => 'required|max:4000'
+            'testimonial' => 'required|max:102'
         ];
     }
 }

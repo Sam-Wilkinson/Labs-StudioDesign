@@ -44,7 +44,9 @@
     <div class="row">
         <h2>Youtube Image</h2>
             <div class="col-md-8 col-md-offset-2">
-                <img src="{{Storage::disk('fronts')->url($youtube[0]->name)}}" alt="">
+                @foreach($youtube as $YT)
+                <img src="{{Storage::disk('fronts')->url($YT->name)}}" alt="">
+                @endforeach
             </div>
         </div>
     </div>

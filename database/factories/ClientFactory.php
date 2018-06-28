@@ -7,7 +7,7 @@ $factory->define(App\Client::class, function (Faker $faker) {
         'name'=>$faker->name,
         'position'=>$faker->jobTitle,
         'company'=>$faker->company,
-        'image'=>$faker->word,
+        'image'=> 'clientImage',
         'validated'=> null,
     ];
 });

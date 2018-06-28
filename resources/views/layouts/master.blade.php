@@ -18,9 +18,10 @@
     <link rel="stylesheet" href="{{asset('theme/css/flaticon.css')}}"/>
 	<link rel="stylesheet" href="{{asset('theme/css/owl.carousel.css')}}"/>
     <link rel="stylesheet" href="{{asset('theme/css/style.css')}}"/>
-    <!-- Only on home page-->
+	<!-- Only on home page--> 
+	@if(Route::currentRouteName() == 'welcome')
 	<link rel="stylesheet" href="{{asset('theme/css/magnific-popup.css')}}"/>
-
+	@endif
 
 	<!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -46,13 +47,16 @@
     <!-- All -->
 	<script src="{{asset('theme/js/jquery-2.1.4.min.js')}}"></script>
 	<script src="{{asset('theme/js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('theme/js/main.js')}}"></script>
+	<script src="{{asset('theme/js/main.js')}}"></script>
     <!-- All except blog-post -->
+	@if(Route::currentRouteName() != 'blogpost')
 	<script src="{{asset('theme/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('theme/js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('theme/js/circle-progress.min.js')}}"></script>
-    <!-- Contact Page Only -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0YyDTa0qqOjIerob2VTIwo_XVMhrruxo"></script>
-
+	<!-- Contact Page Only -->
+	@if(Route::currentRouteName() == 'contact')
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0YyDTa0qqOjIerob2VTIwo_XVMhrruxo"></script>
+	@endif
+	@endif
 </body>
 </html>

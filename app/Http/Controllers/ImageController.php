@@ -40,8 +40,10 @@ class ImageController extends Controller
     {
         if($request->location == 'youtube'){
             $youtube = Image::where('location','youtube')->get();
-            App::make('ImageDelete')->imageDelete($youtube[0]->name, 'fronts');
-            $youtube[0]->delete();
+            foreach($youtube as $YT){
+                App::make('ImageDelete')->imageDelete($YT->name, 'fronts');
+                $YT->delete();
+            }
         }
         $image = new Image;
         $image->location = $request->location;

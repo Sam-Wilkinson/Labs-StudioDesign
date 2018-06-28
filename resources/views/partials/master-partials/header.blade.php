@@ -7,11 +7,18 @@
 		<div class="responsive"><i class="fa fa-bars"></i></div>
 		<nav>
 			<ul class="menu-list">
-				<li class="active"><a href="home.html">Home</a></li>
-				<li><a href="services.html">Services</a></li>
-				<li><a href="blog.html">Blog</a></li>
-				<li><a href="contact.html">Contact</a></li>
-				<li><a href="elements.html">Elements</a></li>
+				<li class="{{Route::currentRouteName()=='welcome'? 'active':''}}">
+					<a href="{{route('welcome')}}">Home</a>
+				</li>
+				<li class="{{Route::currentRouteName()=='services'? 'active':''}}">
+					<a href="{{route('services')}}">Services</a>
+				</li>
+				<li class="{{Route::currentRouteName()=='blogs'? 'active':''}}{{Route::currentRouteName()=='blogpost'? 'active':''}}">
+					<a href="{{route('blogs')}}">Blog</a>
+				</li>
+				<li class="{{Route::currentRouteName()=='contact'?'active':''}}">
+					<a href="{{route('contact')}}">Contact</a>
+				</li>
 			</ul>
 		</nav>
 	</header>

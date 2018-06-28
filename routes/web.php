@@ -11,21 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/services', function () {
-    return view('services');
-});
-Route::get('/blogs', function () {
-    return view('blog');
-});
-Route::get('/blog-post', function () {
-    return view('blog-post');
-});
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::get('/', 'FrontController@welcome')->name('welcome');
+Route::get('/services', 'FrontController@services')->name('services');
+Route::get('/blogs', 'FrontController@blogs')->name('blogs');
+Route::get('/blog-post','FrontController@blogpost')->name('blogpost');
+Route::get('/contact', 'FrontController@contact')->name('contact');
 
 Auth::routes();
 
