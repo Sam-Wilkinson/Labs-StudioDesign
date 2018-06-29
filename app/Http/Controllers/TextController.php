@@ -15,8 +15,9 @@ class TextController extends Controller
      */
     public function index()
     {
-        $texts = Text::orderby('id','desc')->get();
-        return view('admin.texts.index',compact('texts'));
+        $texts = Text::where('page','home')->orderby('number','desc')->get();
+        $contacts = Text::where('page','contact')->orderby('number','asc')->get();
+        return view('admin.texts.index',compact('texts','contacts'));
     }
 
     /**

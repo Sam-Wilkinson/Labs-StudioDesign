@@ -11,78 +11,41 @@
 			<div class="row">
 				<div class="col-md-8 col-sm-7 blog-posts">
 					<!-- Post item -->
+					@foreach($blogs as $blog)
 					<div class="post-item">
 						<div class="post-thumbnail">
-							<img src="{{asset('theme/img/blog/blog-2.jpg')}}" alt="">
+							<img src="{{$blog->image? Storage::disk('blogs')->url($blog->image):asset('theme/img/blog/blog-1.jpg')}}" alt="">
 							<div class="post-date">
 								<h2>03</h2>
-								<h3>Nov 2017</h3>
+								<h3>{{$blog->created_at}}</h3>
 							</div>
 						</div>
 						<div class="post-content">
-							<h2 class="post-title">Just a simple blog post</h2>
+							<h2 class="post-title">{{$blog->name}}</h2>
 							<div class="post-meta">
-								<a href="">Loredana Papp</a>
-								<a href="">Design, Inspiration</a>
-								<a href="">2 Comments</a>
+								<a href="{{route('userblogs',['user'=>$blog->user->id])}}">{{$blog->user->name}}</a>
+								@foreach($blog->tags as $tag)
+								<a href="{{route('tagblogs',['tag'=>$tag->id])}}">{{$tag->name}}</a>
+										@endforeach
+								@php($commentsNum = count($blog->comments))
+								<a href="">{{$commentsNum}} Comment {{$commentsNum == 1? '':'s'}}</a>
 							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-							<a href="blog-post.html" class="read-more">Read More</a>
+							<p>{{$blog->description}}</p>
+							<a href="{{route('blogpost',['blog' => $blog->id])}}" class="read-more">Read More</a>
 						</div>
 					</div>
-					<!-- Post item -->
-					<div class="post-item">
-						<div class="post-thumbnail">
-							<img src="{{asset('theme/img/blog/blog-1.jpg')}}" alt="">
-							<div class="post-date">
-								<h2>03</h2>
-								<h3>Nov 2017</h3>
-							</div>
-						</div>
-						<div class="post-content">
-							<h2 class="post-title">Just a simple blog post</h2>
-							<div class="post-meta">
-								<a href="">Loredana Papp</a>
-								<a href="">Design, Inspiration</a>
-								<a href="">2 Comments</a>
-							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-							<a href="blog-post.html" class="read-more">Read More</a>
-						</div>
-					</div>
-					<!-- Post item -->
-					<div class="post-item">
-						<div class="post-thumbnail">
-							<img src="{{asset('theme/img/blog/blog-3.jpg')}}" alt="">
-							<div class="post-date">
-								<h2>03</h2>
-								<h3>Nov 2017</h3>
-							</div>
-						</div>
-						<div class="post-content">
-							<h2 class="post-title">Just a simple blog post</h2>
-							<div class="post-meta">
-								<a href="">Loredana Papp</a>
-								<a href="">Design, Inspiration</a>
-								<a href="">2 Comments</a>
-							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-							<a href="blog-post.html" class="read-more">Read More</a>
-						</div>
-					</div>
+					@endforeach
 					<!-- Pagination -->
-					<div class="page-pagination">
-						<a class="active" href="">01.</a>
-						<a href="">02.</a>
-						<a href="">03.</a>
-					</div>
+					{!!$blogs->links();!!}
 				</div>
 				<!-- Sidebar area -->
 				<div class="col-md-4 col-sm-5 sidebar">
 					<!-- Single widget -->
 					<div class="widget-item">
-						<form action="#" class="search-form">
-							<input type="text" placeholder="Search">
+						<form action="{{route('searchblogs')}}" class="search-form" method="GET">
+							@csrf
+							@method('GET')
+							<input type="text" placeholder="Search" name="name">
 							<button class="search-btn"><i class="flaticon-026-search"></i></button>
 						</form>
 					</div>
@@ -90,12 +53,9 @@
 					<div class="widget-item">
 						<h2 class="widget-title">Categories</h2>
 						<ul>
-							<li><a href="#">Vestibulum maximus</a></li>
-							<li><a href="#">Nisi eu lobortis pharetra</a></li>
-							<li><a href="#">Orci quam accumsan </a></li>
-							<li><a href="#">Auguen pharetra massa</a></li>
-							<li><a href="#">Tellus ut nulla</a></li>
-							<li><a href="#">Etiam egestas viverra </a></li>
+							@foreach($categories as $category)
+							<li><a href="{{route('categoryblogs',['category'=>$category->id])}}">{{$category->name}}</a></li>
+							@endforeach		
 						</ul>
 					</div>
 					<!-- Single widget -->
@@ -114,13 +74,9 @@
 					<div class="widget-item">
 						<h2 class="widget-title">Tags</h2>
 						<ul class="tag">
-							<li><a href="">branding</a></li>
-							<li><a href="">identity</a></li>
-							<li><a href="">video</a></li>
-							<li><a href="">design</a></li>
-							<li><a href="">inspiration</a></li>
-							<li><a href="">web design</a></li>
-							<li><a href="">photography</a></li>
+							@foreach($tags as $tag)
+							<li><a href="{{route('tagblogs',['tag'=>$tag->id])}}">{{$tag->name}}</a></li>
+							@endforeach
 						</ul>
 					</div>
 					<!-- Single widget -->
@@ -128,14 +84,7 @@
 						<h2 class="widget-title">Quote</h2>
 						<div class="quote">
 							<span class="quotation">‘​‌‘​‌</span>
-							<p>Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar libero. Proin ut hendrerit metus. Aliquam erat volutpat. Donec fermen tum convallis ante eget tristique. Sed lacinia turpis at ultricies vestibulum.</p>
-						</div>
-					</div>
-					<!-- Single widget -->
-					<div class="widget-item">
-						<h2 class="widget-title">Add</h2>
-						<div class="add">
-							<a href=""><img src="{{asset('theme/img/add.jpg')}}" alt=""></a>
+							<p>{{$testimonial->content}}</p>
 						</div>
 					</div>
 				</div>

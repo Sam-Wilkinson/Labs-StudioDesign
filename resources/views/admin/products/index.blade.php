@@ -18,7 +18,7 @@
     <div class="col-md-4 col-sm-6">
             <div class="sv-card">
                 <div class="card-img">
-                    <img src=" {{$product->image == 'image'? asset('theme/img/card-1.jpg'):Storage::disk('products')->url($product->image)}}" alt="">
+                    <img src="{{$product->image == 'image'? asset('theme/img/card-1.jpg'):Storage::disk('products')->url($product->image)}}" alt="">
                 </div>
                 <div class="card-text">
                     <h2>{{$product->name}}</h2>

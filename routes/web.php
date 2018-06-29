@@ -14,9 +14,15 @@
 Route::get('/', 'FrontController@welcome')->name('welcome');
 Route::get('/services', 'FrontController@services')->name('services');
 Route::get('/blogs', 'FrontController@blogs')->name('blogs');
-Route::get('/blog-post','FrontController@blogpost')->name('blogpost');
+Route::get('/blogs/category/{category}','FrontController@categoryblogs')->name('categoryblogs');
+Route::get('/blogs/tag/{tag}','FrontController@tagblogs')->name('tagblogs');
+Route::get('/blogs/user/{user}','FrontController@userblogs')->name('userblogs');
+Route::get('/blogs/search','FrontController@searchblogs')->name('searchblogs');
+Route::get('/blog-post/{blog}','FrontController@blogpost')->name('blogpost');
 Route::get('/contact', 'FrontController@contact')->name('contact');
 Route::post('/contactform','FrontController@contactform')->name('contactform');
+Route::post('/newsletter','FrontController@newsletter')->name('newsletter');
+Route::post('/comment/{blog}', 'FrontController@comment')->name('comment');
 
 Auth::routes();
 

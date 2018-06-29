@@ -66,7 +66,7 @@
 				<div class="intro-video">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
-							<img src="{{Storage::disk('fronts')->url($YTImage[0]->name)}}" alt="">
+							<img src="{{Storage::disk('fronts')->url($YTImage->name)}}" alt="">
 							<a href="https://www.youtube.com/watch?v=JgHfx2v9zOU" class="video-popup">
 								<i class="fa fa-play"></i>
 							</a>

@@ -20,7 +20,7 @@
             <div class="col-sm-4 mb-5">
                 <a href="{{route('users.show',['user'=>$user->id])}}">
                     <div class="member">
-                        <img src="{{$user->image? Storage::disk('users')->url($user->image):Storage::disk('users')->url('UserNoImage.png')}}" alt="">
+                        <img src="{{$user->image? Storage::disk('users')->url($user->image):}}" alt="">
                         <h2>{{$user->name}}</h2>
                         <h3>{{$user->position}}</h3>
                     </div>

@@ -15,7 +15,7 @@
                     <!-- Single Post -->
                     <div class="single-post">
                         <div class="post-thumbnail">
-                            <img src="{{$blog->image? Storage::disk('blogs')->url($blog->image):Storage::disk('blogs')->url('BlogNoImage.png')}}" alt="">
+                            <img src="{{$blog->image? Storage::disk('blogs')->url($blog->image):asset('theme/img/blog/blog-1.jpg')}}" alt="">
                             <div class="post-date">
                                 <h2>03</h2>
                                 <h3>{{$blog->created_at}}</h3>
@@ -45,7 +45,7 @@
                         @foreach($users as $user)
                         <div class="author">
                             <div class="avatar">
-                                <img src="{{$user->image? Storage::disk('users-thumb')->url($user->image):Storage::disk('users-thumb')->url('UserNoImage.png')}}" alt="">
+                                <img src="{{$user->image? Storage::disk('users-tiny')->url($user->image):asset('theme/img/avatar/03.jpg')}}" alt="">
                             </div>
                             <div class="author-info">
                                 <h2>{{$user->name}}, <span>Author</span></h2>
@@ -56,7 +56,7 @@
                         @else
                         <div class="author">
                             <div class="avatar">
-                                <img src="{{$blog->user->image? Storage::disk('users-thumb  ')->url($blog->user->image):Storage::disk('users-thumb')->url('UserNoImage.png')}}" alt="">
+                                <img src="{{$blog->user->image? Storage::disk('users-thumb  ')->url($blog->user->image):asset('theme/img/avatar/03.jpg')}}" alt="">
                             </div>
                             <div class="author-info">
                                 <h2>{{$blog->user->name}}, <span>Author</span></h2>
@@ -73,10 +73,10 @@
                                     <div class="avatar">
                                         @if($blog->user == null)
                                         @foreach($users as $user)
-                                        <img src="{{$user->image? Storage::disk('users-tiny')->url($user->image):Storage::disk('users-tiny')->url('UserNoImage.png')}}" alt="">
+                                        <img src="{{$user->image? Storage::disk('users-tiny')->url($user->image):asset('theme/img/avatar/02.jpg')}}" alt="">
                                         @endforeach
                                         @else
-                                        <img src="{{$blog->user->image? Storage::disk('users-tiny')->url($blog->user->image):Storage::disk('users-tiny')->url('UserNoImage.png')}}" alt="">
+                                        <img src="{{$blog->user->image? Storage::disk('users-tiny')->url($blog->user->image):asset('theme/img/avatar/02.jpg')}}" alt="">
                                         @endif
                                     </div>
                                     <div class="commetn-text">

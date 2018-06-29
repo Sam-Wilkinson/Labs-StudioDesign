@@ -49,6 +49,49 @@
         </div>
     </div>
 </div>
+<div class="contact-section spad fix ">
+    <div class="">
+        <div class="section-title left">
+            <h2 class="text-dark">CONTACT US</h2>
+        </div>
+        <form class="m-2" action="{{route('texts.update',['text'=>$contacts[0]->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="text" name="text" id="" value="{{$contacts[0]->content}}">
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+        <form class="m-2" action="{{route('texts.update',['text'=>$contacts[1]->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="text" name="text" id="" value="{{$contacts[1]->content}}">
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+        <form class="m-2" action="{{route('texts.update',['text'=>$contacts[2]->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="text" name="text" id="" value="{{$contacts[2]->content}}">
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+        <form class="m-2" action="{{route('texts.update',['text'=>$contacts[3]->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="text" name="text" id="" value="{{$contacts[3]->content}}">
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+        <form class="m-2" action="{{route('texts.update',['text'=>$contacts[4]->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="text" name="text" id="" value="{{$contacts[4]->content}}">
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+        <form class="m-2" action="{{route('texts.update',['text'=>$contacts[5]->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="text" name="text" id="" value="{{$contacts[5]->content}}">
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+    </div>
+</div>
 @stop
 
 @section('js')
