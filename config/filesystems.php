@@ -96,6 +96,12 @@ return [
             'url' => env('APP_URL').'/storage/fronts',
             'visibility' => 'public',
         ],
+        'randomImages' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/random'),
+            'url' => env('APP_URL').'/storage/random',
+            'visibility' => 'public',
+        ],
 
 
         's3' => [

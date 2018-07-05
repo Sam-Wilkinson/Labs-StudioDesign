@@ -5,6 +5,18 @@
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>
+		@if(session('message'))
+		<div>
+			<div class="col-md-3 col-sm-6 text-center">
+				<div class="fact "
+					<div class="fact-text">
+						<h2>Thank you!</h2>
+						<h4>{{session('message')}}</h4 >
+					</div>
+				</div>
+			</div>
+		</div>
+		@endif
 		<nav>
 			<ul class="menu-list">
 				<li class="{{Route::currentRouteName()=='welcome'? 'active':''}}">

@@ -56,7 +56,12 @@
 	<!-- Contact Page Only -->
 	@if(Route::currentRouteName() == 'contact')
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0YyDTa0qqOjIerob2VTIwo_XVMhrruxo"></script>
+	<script src="{{asset('theme/js/map.js')}}"></script>
 	@endif
+	@endif
+	@if(Route::currentRouteName() == 'blogs' || Route::currentRouteName() == 'blogpost')
+	<script type="text/javascript" src="{{asset('theme/js/instafeed.min.js')}}"></script>
+	<script src="{{asset('theme/js/instagram.js')}}"></script>
 	@endif
 </body>
 </html>

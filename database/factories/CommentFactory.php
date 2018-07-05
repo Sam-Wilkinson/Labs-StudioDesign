@@ -7,6 +7,6 @@ $factory->define(App\Comment::class, function (Faker $faker) {
         'name'=> $faker->name,
         'email'=>$faker->email,
         'message'=>$faker->sentence(10,15),
-        'validated'=>null,
+        'validated'=> true,
     ];
 });

@@ -97,7 +97,7 @@
 							<p>{{$testimonial->content}}</p>
 							<div class="client-info">
 								<div class="avatar">
-									<img src="{{$client->image != 'clientImage'? Storage::disk('clients')->url($client->image):('theme/img/avatar/01.jpg')}}" alt="">
+									<img src="{{$client->image != 'clientImage'? Storage::disk('clients')->url($client->image):asset('theme/img/avatar/01.jpg')}}" alt="">
 								</div>
 								<div class="client-name">
 									<h2>{{$client->name}}</h2>

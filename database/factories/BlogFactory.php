@@ -8,7 +8,7 @@ $factory->define(App\Blog::class, function (Faker $faker) {
         'name' => $faker->sentence(rand(4,15)),
         'description' =>$faker->sentence(rand(10,20)),
         'content' =>$faker->sentence(rand(30,50)),
-        'validated'=> null,
+        'validated'=> true,
         'categories_id' => $faker->numberBetween(1,$categoriesCount),
     ];
 });

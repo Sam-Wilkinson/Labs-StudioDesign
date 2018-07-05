@@ -21,7 +21,7 @@
             <!-- single member -->
             <div class="col-sm-4 mb-5">
                 <div class="member">
-                    <img src="{{$user->image? Storage::disk('users')->url($user->image):Storage::disk('users')->url('UserNoImage.png')}}" alt="">
+                    <img src="{{$user->image? Storage::disk('users')->url($member->image):asset('theme/img/team/1.jpg')}}" alt="">
                     <h2>{{$user->email}}</h2>
                     <h2>{{$user->position}}</h2>
                     <div>
@@ -42,7 +42,7 @@
             <a href="" class="col-sm-4 h-100">
                 <div class="card-group h-100">
                     <div class="card">
-                      <img class="card-img-top" src="{{$blog->image? Storage::disk('blogs')->url($user->image):Storage::disk('blogs')->url('BlogNoImage.png')}}" alt="Card image cap">
+                      <img class="card-img-top" src="{{$blog->image? Storage::disk('blogs')->url($blog->image):asset('theme/img/blog/blog-1.jpg')}}" alt="Card image cap">
                       <div class="card-body">
                         <h5 class="card-title">{{$blog->name}}</h5>
                         <p class="card-text">{{$blog->description}}</p>

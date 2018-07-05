@@ -9,6 +9,7 @@ use Route;
 use App\Mail\ContactFormMailer;
 use App\Http\Requests\StoreNewsEmail;
 use App\Http\Requests\StoreContactForm;
+use App\Http\Requests\StorePublicComment;
 use App\Blog;
 use App\Image;
 use App\Service;
@@ -61,7 +62,7 @@ class FrontController extends Controller
 
     public function blogs()
     {
-        $blogs = Blog::orderby('created_at','desc')->paginate(3);
+        $blogs = Blog::where('validated', 1)->orderby('created_at','desc')->paginate(3);
         $tags = Tag::get();
         $categories = Category::get();
         $testimonial = Testimonial::get()->random(1)->first();
@@ -72,7 +73,7 @@ class FrontController extends Controller
     public function categoryblogs(Category $category)
     {
 
-        $blogs = Blog::where('categories_id',$category->id)->paginate(3);
+        $blogs = Blog::where('categories_id',$category->id)->where('validated', 1 )->paginate(3);
         $tags = Tag::get();
         $categories = Category::get();
         $testimonial = Testimonial::get()->random(1)->first();
@@ -83,7 +84,7 @@ class FrontController extends Controller
     public function tagblogs(Tag $tag)
     {
 
-        $blogs = Tag::find($tag->id)->blogs()->where('tags_id', $tag->id)->paginate(3);
+        $blogs = Tag::find($tag->id)->blogs()->where('tags_id', $tag->id)->where('validated', 1 )->paginate(3);
         $tags = Tag::get();
         $categories = Category::get();
         $testimonial = Testimonial::get()->random(1)->first();
@@ -93,7 +94,7 @@ class FrontController extends Controller
     public function userblogs(User $user)
     {
 
-        $blogs = Blog::where('users_id',$user->id)->paginate(3);
+        $blogs = Blog::where('users_id',$user->id)->where('validated', 1 )->paginate(3);
         $tags = Tag::get();
         $categories = Category::get();
         $testimonial = Testimonial::get()->random(1)->first();
@@ -105,7 +106,7 @@ class FrontController extends Controller
     {
 
         $name = $request->name;
-        $blogs = Blog::where('name', 'LIKE', '%'.$name.'%')->paginate(3);
+        $blogs = Blog::where('name', 'LIKE', '%'.$name.'%')->where('validated', 1 )->paginate(3);
         $tags = Tag::get();
         $categories = Category::get();
         $testimonial = Testimonial::get()->random(1)->first();
@@ -118,7 +119,8 @@ class FrontController extends Controller
         $tags = Tag::get();
         $categories = Category::get();
         $testimonial = Testimonial::get()->random(1)->first();
-        return view('blog-post',compact('blog','tags','categories','testimonial'));
+        $comments = Comment::where('blogs_id', $blog->id)->where('validated', 1)->get();
+        return view('blog-post',compact('blog','tags','categories','testimonial','comments'));
     }
 
     public function contact()
@@ -129,7 +131,9 @@ class FrontController extends Controller
     public function contactform(StoreContactForm $request)
     {
         Mail::to('yassine@molengeek.com')->send(new ContactFormMailer($request));
-        return redirect()->route('welcome');
+        return redirect()->route('welcome')->with([
+            "message"=> "We have received your message and will get back to you as soon as possible",
+            ]);;
     }
     
     public function newsletter(Request $request)
@@ -137,33 +141,23 @@ class FrontController extends Controller
         $email = new Newsemail;
         $email->email = $request->newsemail;
         if($email->save()){
-            return redirect()->route('services')->with([
-                "status"=> "Success",
-                "message"=> "You have successfully added a Blog",
-                "color"=> "success"
+            return redirect()->route('welcome')->with([
+                "message"=> "You have successfully subscribed to our newsletter",
                 ]);
-        }else{
-            return redirect()->route('services')->with([
-                "status"=> "Sorry",
-                "message"=> "Unfortunately we were unable to register your email, please try again",
-                "color"=> "danger"
-                ]);
-        }    
+        }   
     }
-    public function comment(Request $request, $blog){
+    public function comment(StorePublicComment $request, $blog){
 
         $comment = new Comment;
         $comment->name = $request->name;
         $comment->email = $request->email;
-        $comment->message = $request->email;
+        $comment->message = $request->message;
         $comment->blogs_id = $blog;
         
         if($comment->save()){
-            return redirect()->route('blogpost',['blog' => $blog]);
-        }
-        else{
-            return redirect()->route('blogpost',['blog' => $blog]);
-        }
-
+            return redirect()->route('blogpost',['blog' => $blog])->with([
+                "message"=> "We have received your message and it will be displayed as soon as it can be check",
+                ]);
+            }
     }
 }

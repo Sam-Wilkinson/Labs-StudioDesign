@@ -18,16 +18,21 @@
 					<form class="form-class" id="con_form" action="{{route('contactform')}}" method="POST">
 						@csrf
 						@method('POST')
+						@if($errors->any())
+						<div>
+							<p class="text-danger">There seems to be a problem with the form, please try again</p>
+						</div>
+						@endif
 						<div class="row">
 							<div class="col-sm-6">
-								<input type="text" name="name" placeholder="Your name">
+								<input type="text" name="name" class="border {{$errors->has('name')? 'border-danger': ''}}" placeholder="Your name" value="{{old('name')}}">
 							</div>
 							<div class="col-sm-6">
-								<input type="text" name="email" placeholder="Your email">
+								<input type="text" class="border {{$errors->has('email')? 'border-danger': ''}}" name="email" placeholder="Your email" value="{{old('email')}}">
 							</div>
 							<div class="col-sm-12">
-								<input type="text" name="subject" placeholder="Subject">
-								<textarea name="message" placeholder="Message"></textarea>
+								<input type="text" class=" border {{$errors->has('subject')? 'border-danger': ''}}" name="subject" placeholder="Subject" value="{{old('subject')}}">
+								<textarea name="message" class="border {{$errors->has('message')? 'border-danger': ''}}" placeholder="Message">{{old('message')}}</textarea>
 								<button type="submit" class="site-btn">send</button>
 							</div>
 						</div>

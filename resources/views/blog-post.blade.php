@@ -15,8 +15,8 @@
 						<div class="post-thumbnail">
 							<img src="{{$blog->image? Storage::disk('blogs')->url($blog->image):asset('theme/img/blog/blog-1.jpg')}}" alt="">
 							<div class="post-date">
-								<h2>03</h2>
-								<h3>{{$blog->created_at}}</h3>
+								<h2>{{$blog->created_at->format('d')}}</h2>
+								<h3>{{$blog->created_at->format('M Y')}}</h3>
 							</div>
 						</div>
 						<div class="post-content">
@@ -26,7 +26,7 @@
 									@foreach($blog->tags as $tag)
 									<a href="{{route('tagblogs',['tag'=>$tag->id])}}">{{$tag->name}}</a>
 									@endforeach
-									@php($commentsNum = count($blog->comments))
+									@php($commentsNum = count($comments))
 									<a href="">{{$commentsNum}} Comment {{$commentsNum == 1? '':'s'}}</a>
 							</div>
 							{!!$blog->content!!}
@@ -45,19 +45,17 @@
 						<div class="comments">
 							<h2>Comments ({{$commentsNum}})</h2>
 							<ul class="comment-list">
-								@foreach($blog->comments as $comment)
+								@foreach($comments as $comment)
 								<li>
 									<div class="avatar">
-										@if($blog->user == null)
-											@foreach($users as $user)
-												<img src="{{$user->image? Storage::disk('users-tiny')->url($user->image):asset('theme/img/avatar/02.jpg')}}" alt="">
-											@endforeach
+										@if($comment->image == null)
+										<img src="{{Storage::disk('randomImages')->url('random'.rand(1,6).'.jpg')}}" alt="">
 										@else
-										<img src="{{$blog->user->image? Storage::disk('users-tiny')->url($blog->user->image):asset('theme/img/avatar/02.jpg')}}" alt="">
+										<img src="{{Storage::disk('users-tiny')->url($comment->image)}}" alt="">
 										@endif
 									</div>
 									<div class="commetn-text">
-										<h3>{{$comment->name}} | {{$comment->created_at}}</h3>
+										<h3>{{$comment->name}} | {{$comment->created_at->format('d M')}}, {{$comment->created_at->format('Y')}}</h3>
 										<p>{{$comment->message}} </p>
 									</div>
 								</li>
@@ -113,12 +111,7 @@
 					<div class="widget-item">
 						<h2 class="widget-title">Instagram</h2>
 						<ul class="instagram">
-							<li><img src="{{asset('theme/img/instagram/1.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/2.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/3.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/4.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/5.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/6.jpg')}}" alt=""></li>
+							<div id="instafeed"></div>
 						</ul>
 					</div>
 					<!-- Single widget -->

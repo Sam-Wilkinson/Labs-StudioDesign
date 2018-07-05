@@ -16,8 +16,8 @@
 						<div class="post-thumbnail">
 							<img src="{{$blog->image? Storage::disk('blogs')->url($blog->image):asset('theme/img/blog/blog-1.jpg')}}" alt="">
 							<div class="post-date">
-								<h2>03</h2>
-								<h3>{{$blog->created_at}}</h3>
+								<h2>{{$blog->created_at->format('d')}}</h2>
+								<h3>{{$blog->created_at->format('M Y')}}</h3>
 							</div>
 						</div>
 						<div class="post-content">
@@ -62,12 +62,7 @@
 					<div class="widget-item">
 						<h2 class="widget-title">Instagram</h2>
 						<ul class="instagram">
-							<li><img src="{{asset('theme/img/instagram/1.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/2.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/3.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/4.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/5.jpg')}}" alt=""></li>
-							<li><img src="{{asset('theme/img/instagram/6.jpg')}}" alt=""></li>
+							<div id="instafeed"></div>
 						</ul>
 					</div>
 					<!-- Single widget -->
